@@ -1,4 +1,4 @@
-# DNAC Manage backups
+# Manage DNAC backups
 This python CLI tool will show or delete older automation backups on Cisco DNA Center.<br>
 This tool can show the current backups, delete a specific backup by id<br>
 or delete all backups older than a certain time (the default is 2 years).
