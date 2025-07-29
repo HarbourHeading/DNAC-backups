@@ -3,42 +3,65 @@ This python CLI tool will show or delete older automation backups on Cisco DNA C
 This tool can show the current backups, delete a specific backup by id<br>
 or delete all backups older than a certain time (the default is 2 years).
 
-## Listing the backups
+## Getting started
+Clone the repo
+````
+git clone https://github.com/HarbourHeading/manage-dnac-backups.git
+````
+Change directory to root
+````
+cd manage-dnac-backups
+````
+Export required vars or move into `.env` or equivalent that python reads for env vars.
+````
+export DNAC_FQDN=dnac.example.com
+export DNAC_USER=dnac_backup_manager
+export DNAC_PASS=SuperSecurePassword1!
+````
+In DNAC, make sure the specified user has sufficient permissions (role based access control).<br>
+Permissions not mentioned should be set to DENY.
+````
+Platform > APIs > Write
+System > System Management > Write
+````
+
+## Usage
+### Listing the backups
 Run the manage_backup command with no arguments to list backups.
 
-```bash
+````bash
 python manage_backups.py 
-```
+````
 Output:
-```
+````
 Backup-id                               name                          timestamp                     time
 70a0a277-8ff6-48b3-8a7b-832eef048c5a    test-backup                   1666243182.6503744            2022-10-20 16:19:42
-```
+````
 
-## Deleting old backups
+### Deleting old backups
 By default, backups older than 2 year are deleted. To delete a backup more recently,<br>
 use the `--older <secs>` argument. For example, older than 1 year, you can use `--older 31556952`
 
-```bash
+````bash
 python manage_backups.py --older 31556952
-```
+````
 
-## Deleting a specific backup
+### Deleting a specific backup
 Provide a backup id and just that backup will be deleted.
 
-```bash
+````bash
 python manage_backups.py --delete 70a0a277-8ff6-48b3-8a7b-832eef048c5a
-```
+````
 *Note: This API call returns the exact same message, even if a backup by the supplied ID does not exist.*
 
-## Dryrun the command
+### Dryrun the command
 Dryrun the command. Shows what the command will do without consequences. Shows all backups that would be deleted (1.5 years or older).
-```bash
+````bash
 python manage_backups.py --older 47335428 --dryrun
-```
+````
 
-## Enable debug logs
+### Enable debug logs
 Add -v argument to get verbose debug logging.
-```
+````
 python manage_backups.py -v
-```
+````
